@@ -15,7 +15,7 @@ int *scores, score;// for score
 int numx, numy, numx1, numy1;
 string *names, name;// for names
 string lettres = "aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzzAABBCCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTTTUUVVWWXXYYZZ";
-string namedoc, themes, rep;
+string namedoc, themes, rep, background;
 fstream f;
 bool run, msgwin; // bool for run loop;
 bool save = false;
@@ -139,6 +139,11 @@ int main()
 					break;
 			}
 		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+		{
+			window.close();
+			run = false;
+		}
 		position = text1.getPosition();
 		shape1.setPosition(position.x, position.y + 2);
 		position2 = text2.getPosition();
@@ -257,6 +262,11 @@ textureSize = sf::Vector2u(47, 62);
 					break;
 			}
 		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+		{
+			window.close();
+			run = false;
+		}
 		window.clear();
 		window.draw(shape1);
 		window.draw(shape2);
@@ -266,20 +276,24 @@ textureSize = sf::Vector2u(47, 62);
 		window.draw(text3);
 		window.display();
 	}
+//
 	switch(theme)
 	{
 		case 0:
 			themes = "res/cards.png";
+			background = "res/black_background.png";
 			tileSize = sf::Vector2u(47*2, 62*2);
 			textureSize = sf::Vector2u(47, 62);
 			break;
 		case 1:
 			themes = "res/avatar.png";
+			background = "res/avatar_background.jpg";
 			textureSize = sf::Vector2u(80, 80);
 			tileSize = sf::Vector2u(textureSize.x * 1.5, textureSize.y * 1.5);
 			break;
 		case 2:
 			themes = "res/pokemon.png";
+			background = "res/black_background.png";
 			textureSize = sf::Vector2u(100, 100);
 			tileSize = sf::Vector2u(textureSize.x * 1.20, textureSize.y * 1.20);
 			break;
@@ -327,7 +341,12 @@ switch (difficulty){
 
 /*******************************************************************************/
 maps(tileSize, textureSize);
-
+sf::RectangleShape backgroundShape;
+sf::Texture backgroundTexture;
+backgroundTexture.loadFromFile(background);
+backgroundShape.setSize(view.getSize());
+backgroundShape.setPosition(sf::Vector2f(0,0));
+backgroundShape.setTexture(&backgroundTexture);
 /****************************Game Loop**************************************/
   int turn = 0;
 	if (window.isOpen())
@@ -335,8 +354,10 @@ maps(tileSize, textureSize);
 	if (difficulty == 2)
 	{
 		view.move(-240, -30);
+		backgroundShape.move(-240, -30);
 }else{
 	view.move(-350, -150);
+	backgroundShape.move(-350, -150);
 }
 	while (run)
 	{
@@ -418,10 +439,15 @@ maps(tileSize, textureSize);
 			}
 		}
 
-
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+		{
+			window.close();
+			run = false;
+		}
 		maps(tileSize, textureSize);
 		window.setView(view);
 		window.clear();
+		window.draw(backgroundShape);
 		window.draw(m_vertices, &m_tileset);
 		window.display();
 		boucle();
@@ -467,6 +493,11 @@ maps(tileSize, textureSize);
 				default:
 					break;
 			}
+		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+		{
+			window.close();
+			run = false;
 		}
 		window.setView(view);
 		window.clear();
@@ -763,6 +794,11 @@ maps(tileSize, textureSize);
 		name4.setString(names[3]);
 		if(n > 4)
 		name5.setString(names[4]);
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+		{
+			window.close();
+			run = false;
+		}
 		window.clear();
 		window.draw(line1);
 		window.draw(line2);
