@@ -293,7 +293,7 @@ textureSize = sf::Vector2u(47, 62);
 			break;
 		case 2:
 			themes = "res/pokemon.png";
-			background = "res/black_background.png";
+			background = "res/map_kanto.png";
 			textureSize = sf::Vector2u(100, 100);
 			tileSize = sf::Vector2u(textureSize.x * 1.20, textureSize.y * 1.20);
 			break;
